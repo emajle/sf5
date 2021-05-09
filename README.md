@@ -5,8 +5,8 @@
 
   ## Commandes d'installations : 
   
-   - server:ca:install
-    *Permet de rajouter une symulation de licence*
+   - server:ca:install<br>
+    *Permet de rajouter une simulation de licence*
 
     - require maker --dev
 
