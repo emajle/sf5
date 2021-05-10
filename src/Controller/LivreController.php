@@ -72,6 +72,13 @@ class LivreController extends AbstractController
     {
         $livre = new Livre;
         $formLivre = $this->createForm(LivreType::class, $livre);
+        // handleRequest : permet à la variable $formLivre de gérer les infos envoyées par le navigateur
+        $formLivre->handleRequest($request);
+        if ($formLivre->isSubmitted() && $formLivre->isValid()) {
+            $em->persist($livre);
+            $em->flush();
+            return $this->redirectToRoute("livre");
+        }
         return $this->render("livre/form.html.twig", ["form" => $formLivre->createView()]);
     }
 }
