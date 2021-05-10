@@ -33,5 +33,32 @@
 
 ## Jour 2 :
 
-- paramètre optionnel dans une route
-- valeur par défaut
+- Paramètre optionnel dans une route
+- Valeur par défaut d'une fonction de route
+- Nature d'un paramètre d'une route (requirements=regex)
+- Syntax nouvelle annotation de route
+
+### Connexion à la base de donnée
+
+- <code>composer require orm</code> (gestion de la bdd)
+- Création de la bdd (vide) avec <code>symfony console doctrine:database:create</code>
+- Modif dans .env pour connexion bdd
+
+### Gestion / intéractions BDD
+- création nvlle route + vue -> <code>symfony console make:controller</code>
+- Récupération info formulaire
+- Utilisation de EntityManager <code>symfony console make:entity</code>
+  -> <code>symfony console make:migration</code>
+    -><code>symfony console doctrine:migrations:migrate</code>
+- Classe Entity 
+- Méthode persist et flush
+- Utilisation de la classe Repository, méthode find et findAll
+
+### Formulaires :
+
+- Installation de <code>composer require form validator</code> (générer des formulaires)
+- make:form (création fichier, gérer un formulaire / générer )
+- creatForm et createView 
+- Composant form -> personnalisation
+- Classe Request 
+- Ajout de contraintes
