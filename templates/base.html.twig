@@ -17,7 +17,10 @@
         <h1>{% block h1 %}Bienvenue à la bibliothèque{% endblock %}</h1>
         {% block body %} 
         Page d'accueil 
-        <p>Nombre = {{ nombre }}</p>
+        <p>Nombre = {{ nombre is defined ? nombre : "" }}</p>
+        {# Si nombre est défini, on écrit le nombre, sinon on n'écrit rien #}
+        {# Autre manière de gérer l'erreur : filtre default : #}
+        <p>Nombre = {{ nombre|default("non défini")}}</p>
         <p>Prénom = {{ prenom}}</p>
         {% endblock %}
 

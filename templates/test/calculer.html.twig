@@ -2,10 +2,15 @@
 
 {% block body %}
 <ul>
-<li>Les calculs ont été demandé avec les chiffre : {{n1}} et {{n2}}</li>
-<li>Voici le résultat de l'addition : {{ addition }}</li>
-<li>Voici le résultat de la soustraction : {{ soustraction }}</li>
-<li>Voici le résultat de la multiplication : {{ multiplication }}</li>
-<li>Voici le résultat de la division : {{ division }}</li>
+<li>Les calculs ont été demandé avec les chiffres : {{n1}} et {{n2}}</li>
+<li>Addition : {{ n1 + n2 }}</li>
+<li>Soustraction : {{ n1 - n2 }}</li>
+<li>Multiplication : {{ n1 * n2 }}</li>
+{% if n2 == 0 %}
+<li>Division par 0 impossible</li>  
+{% else %}
+<li>Division : {{ n1 / n2 }}</li>
+{% endif %}
+
 </ul>
 {% endblock %}

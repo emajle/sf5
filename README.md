@@ -26,7 +26,12 @@
     - Extends d'un template
     - Boucle for
     - Structures conditionnelles (IF, TESTS)
-    - Les filtres
+    - Les filtres (|upper : ex d'utilisation de filtre)
     - https://twig.symfony.com/ 
 
     ## Apprendre à gérer les routes avec annotations
+
+## Jour 2 :
+
+- paramètre optionnel dans une route
+- valeur par défaut

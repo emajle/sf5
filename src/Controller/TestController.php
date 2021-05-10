@@ -71,38 +71,29 @@ class TestController extends AbstractController
     /**
      * @Route("/test/salutation/{prenom}")
      */
-    public function salutation($prenom)
+    public function salutation($prenom = "inconnu")
     {
-
+        // Si on donne une valeur par défaut à prenom dans les param de la fonction salutation, cela rend le param de la route optionnel
+        //Si on ne met pas de paramètre par défaut, on peut mettre un point d'interrogation après prenom dans la route. 
+        // $prenom = $prenom ?? "inconnu" -> si $prenom n'existe pas, afficher inconnu. (autre possibilité de valeur par défaut si on met un point d'interrogation dans la route)
         return $this->render("test/salutation.html.twig", ["prenom" => $prenom]);
         // EXO : créer la vue et afficher dans la balise <h1></h1>
         // Bonjour "prenom"
     }
 
     /**
-     * @Route("/test/calculer/{n1}/{n2}")
+     * @Route("/test/calculer/{n1}/{n2}", name="test_calcul", requirements={"nb1"="[0-9]+", "nb2"="[0-9]+"})
      */
+    // Route ancienne version
+
+
+    #[Route('/test/calculer/{n1}/{n2}', name: 'test_operations', requirements: ['n1' => '[0-9]+', 'n2' => '[0-9]+'])]
     public function calculer($n1, $n2)
     {
-        if ($n1 == 0 || $n2 == 0) {
-            return $this->render("test/calculer.html.twig", [
-                "n1" => $n1,
-                "n2" => $n2,
-                "addition" => $n1 + $n2,
-                "soustraction" => $n1 - $n2,
-                "multiplication" => $n1 * $n2,
-                "division" => "la division par 0 est impossible"
-            ]);
-        } else {
-            return $this->render("test/calculer.html.twig", [
-                "n1" => $n1,
-                "n2" => $n2,
-                "addition" => $n1 + $n2,
-                "soustraction" => $n1 - $n2,
-                "multiplication" => $n1 * $n2,
-                "division" => $n1 / $n2
-            ]);
-        }
+        return $this->render("test/calculer.html.twig", [
+            "n1" => $n1,
+            "n2" => $n2
+        ]);
     }
 
     /**
