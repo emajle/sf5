@@ -88,3 +88,4 @@
 - <code>symfony console make:entity</code>
 - <code>php bin/console make:migration</code>
 - <code>symfony console d:m:m</code> (modification de la bdd)
+- Mapped / gestion mdp / contraints
