@@ -6,6 +6,7 @@ use App\Entity\Abonne;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -19,12 +20,14 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('pseudo')
             ->add('agreeTerms', CheckboxType::class, [
+                // tous les champs du formulaire doivent correspondre à une propriété de l'entité (la table) correspondante. (ici, la table Abonne). Si on veut ajouter un champ dans le formulaire qui ne soit pas lié à une propriété, il faut ajouter l'option "mapped" => false
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les C.G.U.',
                     ]),
                 ],
+                "label" => "j'accepte les C.G.U."
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -33,17 +36,23 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Le mot de passe ne peut pas être vide',
                     ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
+                    //new Length([
+                    //    'min' => 6,
+                    //    'minMessage' => 'Your password should be at least {{ limit }} characters',
+                    //    // max length allowed by Symfony for security reasons
+                    //    'max' => 4096,
+                    //]),
                 ],
             ])
-        ;
+            ->add("prenom", TextType::class, [
+                "label" => "Prénom",
+                "required" => false
+            ])
+            ->add("nom", TextType::class, [
+                "required" => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
