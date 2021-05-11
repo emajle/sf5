@@ -20,6 +20,7 @@
     </head>
     <body>
     <div class="container">
+        {{ include("menu.html.twig") }}
         <h1>{% block h1 %}Bienvenue à la bibliothèque{% endblock %}</h1>
         {% block body %} 
         Page d'accueil 
