@@ -74,3 +74,9 @@
 - Nouvelle route
 - Vue "supprimer.html.twig" (page de confirmation)
 - Remove()
+
+### Home
+
+- <code>symfony console make:controller Home</code>
+- Home en racine du projet
+- Boucler sur un include

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block h1 %}Home{% endblock %}
+
+{% block body %}
+    <div class="card-deck">
+        {% for livre in livres %}
+            {{ include( "livre/vignette.html.twig") }}
+            {# 
+            On peut mettre un deuxième param dans le include si on veut changer le nom de la variable :
+            Si on avait voulu écrire avec l -> {% for l in livres %}
+            Il aurait fallut le spécifier dans -> {{ include( "livre/vignette.html.twig", {livre: l}) }}
+             #}
+        {% endfor %}
+    </div>
+   
+{% endblock %}
