@@ -11,10 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 // objet request, qu'il faudra instancier. Il permet de récup le contenu de $_POST
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\LivreRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+// Toutes les routes de ce controller vont commencer par "/admin"
+#[Route('/admin')]
 class LivreController extends AbstractController
 {
     #[Route('/livre', name: 'livre')]
+    #[IsGranted("ROLE_ADMIN")] // si on met route ("/admin") au dessus de notre class, pas besoin de IsGranted()
     public function index(LivreRepository $livreRepository): Response
     {
         // Pour récupérer la liste de tous les livres enregistrés en bdd, je vais utiliser la classe LivreRepository. 
