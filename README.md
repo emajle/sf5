@@ -62,3 +62,15 @@
 - Composant form -> personnalisation
 - Classe Request 
 - Ajout de contraintes
+
+## Jour 3 :
+
+### Modifier un objet de la BDD
+- param dans url
+- methode find() 
+- Ajustement du tableau / récupération id
+
+### Supprimer un objet de la BDD
+- Nouvelle route
+- Vue "supprimer.html.twig" (page de confirmation)
+- Remove()

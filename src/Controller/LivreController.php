@@ -33,6 +33,7 @@ class LivreController extends AbstractController
      */
     public function ajouter(Request $request, EntityManager $em)
     // instanciation de EntityManager dans les param de la fonction
+    // request s'instancie automatiquement
     {
         //dump($request);
         if ($request->isMethod("POST")) {
@@ -80,5 +81,40 @@ class LivreController extends AbstractController
             return $this->redirectToRoute("livre");
         }
         return $this->render("livre/form.html.twig", ["form" => $formLivre->createView()]);
+    }
+
+    /**
+     * @Route("/livre/modifier/{id}", name="livre_modifier", requirements={"id" = "\d+"})
+     */
+    public function modifier(EntityManager $em, Request $request, LivreRepository $lr, $id)
+    {
+        $livre = $lr->find($id); // find() permet de récupérer les infos du livre qui à l'identifiant passé en param
+        $formLivre = $this->createForm(LivreType::class, $livre);
+        // handleRequest : permet à la variable $formLivre de gérer les infos envoyées par le navigateur
+        $formLivre->handleRequest($request);
+        if ($formLivre->isSubmitted() && $formLivre->isValid()) {
+            //$em->persist($livre);
+            // Pour modifier un enregistrement, pas besoin d'utiliser persist() d'EntityManager.
+            // Toutes les variables entités qui ont un id non null vont être enregistrées en bdd quand la méthode 'flush' sera appelé
+            $em->flush();
+            return $this->redirectToRoute("livre");
+        }
+        return $this->render("livre/form.html.twig", ["form" => $formLivre->createView()]);
+    }
+
+    /**
+     * @Route("/livre/supprimer/{id}", name="livre_supprimer", requirements={"id" = "\d+"})
+     * 
+     * En passant un objet Livre comme paramètre de la méthode supprimer, $livre sera récupéré dans la bdd selon la valeur {id} passée dans l'URL de la route
+     */
+    public function supprimer(EntityManager $em, Request $request, Livre $livre)
+    {
+        if ($request->isMethod("POST")) {
+            // remove() prépare la requête DELETE
+            $em->remove($livre);
+            $em->flush();
+            return $this->redirectToRoute("livre");
+        }
+        return $this->render("livre/supprimer.html.twig", ["livre" => $livre]);
     }
 }
