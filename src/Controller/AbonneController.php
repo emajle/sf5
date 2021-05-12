@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface as Encoder;
 
 #[Route('/abonne')]
 class AbonneController extends AbstractController
@@ -22,13 +23,20 @@ class AbonneController extends AbstractController
     }
 
     #[Route('/new', name: 'abonne_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, Encoder $encoder): Response
     {
         $abonne = new Abonne();
         $form = $this->createForm(AbonneType::class, $abonne);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récuperation du mot de passe tapé dans le formulaire
+            $mdp = $form->get("password")->getData();
+            // Encodage du mot de passe récupéré
+            $mdp = $encoder->encodePassword($abonne, $mdp);
+            // Définir la propriété 'password' de l'entité Abonne que je vais enregistrer en bdd
+            $abonne->setPassword($mdp);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($abonne);
             $entityManager->flush();
@@ -51,12 +59,17 @@ class AbonneController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'abonne_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Abonne $abonne): Response
+    public function edit(Request $request, Encoder $encoder, Abonne $abonne): Response
     {
         $form = $this->createForm(AbonneType::class, $abonne);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($mdp = $form->get("password")->getData()) {
+                $mdp = $encoder->encodePassword($abonne, $mdp);
+                $abonne->setPassword($mdp);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('abonne_index');
