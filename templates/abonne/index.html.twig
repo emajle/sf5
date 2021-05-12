@@ -21,7 +21,26 @@
             <tr>
                 <td>{{ abonne.id }}</td>
                 <td>{{ abonne.pseudo }}</td>
-                <td>{{ abonne.roles ? abonne.roles|json_encode : '' }}</td>
+                <td>
+                {% set texte = "" %}
+                    {% for role in abonne.roles %}
+                        {% if role == "ROLE_ADMIN" %}
+
+                            {% set texte = texte ~ (texte ? ", " : "") ~ "Directeur" %}
+
+                        {% elseif role == "ROLE_BIBLIO" %}
+
+                            {% set texte = texte ~ (texte ? ", " : "") ~ "Bibliothécaire" %}
+
+                        {% elseif role == "ROLE_LECTEUR" %}
+
+                            {% set texte = texte ~ (texte ? ", " : "") ~ "Lecteur" %}
+
+                        {% endif %}
+                    {% endfor %}
+
+                   {{ texte }}  {# J'affiche ma variable texte #}
+                </td>
                 <td>{{ abonne.prenom }}</td>
                 <td>{{ abonne.nom }}</td>
                 <td>
