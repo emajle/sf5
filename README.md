@@ -99,3 +99,7 @@
 - <code>symfony console make:crud</code>
 - Formulaire (regex, option help, ...)
 - Gérer le mot de passe
+
+### Relation entre table de bdd
+
+- Relation -> ManyToOne
