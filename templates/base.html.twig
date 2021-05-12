@@ -21,7 +21,18 @@
     <body>
     <div class="container">
         {{ include("menu.html.twig") }}
+
+        {# pour accéder aux messages flash, j'utilise la variable ap.flashes #}
+         {% for type, messages in app.flashes %} {# Messages est aussi un tableau donc on doit refaire une boucle for #}
+            {% for msg in messages %}
+                <div class="alert alert-{{ type }}">
+                    {{ msg }}
+                </div>               
+            {% endfor %}
+        {% endfor %}
+
         <h1>{% block h1 %}Bienvenue à la bibliothèque{% endblock %}</h1>
+        
         {% block body %} 
         Page d'accueil 
         <p>Nombre = {{ nombre is defined ? nombre : "" }}</p>
