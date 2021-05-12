@@ -91,3 +91,10 @@
 - Mapped / gestion mdp / contraints
 - Contrôle d'accès -> is_granted()
 - Route controleur "/admin" 
+
+## Jour 4 : 
+
+### CRUD
+
+- <code>symfony console make:crud</code>
+- Formulaire (regex, option help, ...)
