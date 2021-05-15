@@ -9,10 +9,15 @@
     {# Dans les fichiers Twig, on peut accéder à une variable globale 'app'. 
       app.user : si app.user est non null, contient un objet user (classe Abonne) qui contient les infos de l'abonné/l'utilisateur connecté #}
 
-      {% if app.user %}
+      {# {% if app.user %} #}
+      {% if is_granted("IS_AUTHENTICATED_FULLY") %}  {# IS_AUTHENTICATED_FULLY permet de vérifier si quelqu'un est connecté / authentifié #}
       <li class="nav-item">
         <a class="nav-link" href="{{ path("app_logout") }}">
           <i class="fa fa-sign-out-alt"></i>
+        </a>
+        <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-user"></i> {{ app.user.username }} {# On peut aussi utiliser {{ app.user.pseudo}} #}
         </a>
       </li>
       {% else %}
